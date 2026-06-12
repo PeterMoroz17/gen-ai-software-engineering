@@ -109,13 +109,12 @@ function getAccountSummary(accountId) {
     accountId: id,
     totalDeposits: deposits,
     totalWithdrawals: withdrawals,
-    numberOfTransactions: accountTxns.length,
+    numberOfTransactions: accountTxns.filter(t => t.status !== 'failed').length,
     mostRecentTransaction: mostRecentDate ? mostRecentDate.toISOString() : null,
   };
 }
 
 module.exports = {
-  transactions,
   createTransaction,
   getAllTransactions,
   getTransactionById,

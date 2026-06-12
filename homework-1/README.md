@@ -156,12 +156,17 @@ homework-1/
 **Prompt 1 - Full implementation**
 > "Right now we are working only with homework-1 folder. There you will find the task that needs to be completed in tasks.md. You have to implement them ALL. We will work on documentation in howtorun and readme later"
 
-This single prompt, pointing at the spec file directly rather than re-describing requirements, generated the complete project: layered architecture (routes → model → validators → middleware), all four Task 4 options, 150+ ISO 4217 currency codes, and the multi-currency balance design.
+This single prompt, pointing at the spec file directly rather than re-describing requirements, generated the complete project: layered architecture (routes - model - validators - middleware), all four Task 4 options, and 150+ ISO 4217 currency codes.
 
 **Prompt 2 - Documentation**
 > "Good, now document how to run this program in howtorun.md"
 
-Minor follow-up prompts fixed a PowerShell `-UseBasicParsing` warning in the examples and multiline command formatting in HOWTORUN.md.
+Generated HOWTORUN.md. Minor follow-ups fixed a PowerShell `-UseBasicParsing` warning and multiline command formatting.
+
+**Prompt 3 - Multi-currency support**
+> "assuming nothing is said about it, lets add other currencies"
+
+Added independent per-currency balance tracking rather than collapsing all balances into a single number. This changed the balance, summary, and interest endpoints to operate per currency.
 
 ### What was reviewed manually
 
@@ -172,6 +177,6 @@ Minor follow-up prompts fixed a PowerShell `-UseBasicParsing` warning in the exa
 
 ### Observations
 
-One sufficiently specific prompt produced a working implementation with no iteration needed on the core logic. The main limitation of this approach is that there is no visible prompt refinement process to document - the spec was handed directly to the model and the output was reviewed rather than iteratively prompted.
+Three prompts covered all meaningful work. There were also a few minor debugging follow-ups (port conflicts, PowerShell syntax) that were not significant enough to document separately. The main takeaway is that feeding the spec file directly rather than re-describing requirements in natural language produced a complete, working implementation without needing to iterate on the core logic.
 
 ---
