@@ -1,0 +1,44 @@
+{
+  "accounts": [
+    { "id": "ACC-12345", "owner": "Alice" },
+    { "id": "ACC-67890", "owner": "Bob" },
+    { "id": "ACC-AAAAA", "owner": "Carol" }
+  ],
+  "transactions": [
+    {
+      "fromAccount": null,
+      "toAccount": "ACC-12345",
+      "amount": 1000.00,
+      "currency": "USD",
+      "type": "deposit"
+    },
+    {
+      "fromAccount": null,
+      "toAccount": "ACC-67890",
+      "amount": 500.00,
+      "currency": "USD",
+      "type": "deposit"
+    },
+    {
+      "fromAccount": "ACC-12345",
+      "toAccount": "ACC-67890",
+      "amount": 250.50,
+      "currency": "USD",
+      "type": "transfer"
+    },
+    {
+      "fromAccount": "ACC-67890",
+      "toAccount": null,
+      "amount": 100.00,
+      "currency": "USD",
+      "type": "withdrawal"
+    },
+    {
+      "fromAccount": null,
+      "toAccount": "ACC-AAAAA",
+      "amount": 750.00,
+      "currency": "EUR",
+      "type": "deposit"
+    }
+  ]
+}
