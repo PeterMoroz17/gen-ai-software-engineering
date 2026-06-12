@@ -47,15 +47,15 @@ npm run dev
 
 ## Testing the API
 
-### Option A — VS Code REST Client
+### Option A - VS Code REST Client
 
 1. Install the [REST Client](https://marketplace.visualstudio.com/items?itemName=humao.rest-client) extension.
 2. Open [demo/sample-requests.http](demo/sample-requests.http).
 3. Click **Send Request** above any request block.
 
-### Option B — PowerShell (Invoke-RestMethod)
+### Option B - PowerShell (Invoke-RestMethod)
 
-PowerShell's built-in `Invoke-RestMethod` avoids all curl quoting issues. Use single quotes around the JSON body — no escaping needed.
+PowerShell's built-in `Invoke-RestMethod` avoids all curl quoting issues. Use single quotes around the JSON body - no escaping needed.
 
 ```powershell
 # Create a deposit
@@ -92,7 +92,7 @@ Invoke-RestMethod -Uri "http://localhost:3000/accounts/ACC-12345/interest?rate=0
 Invoke-WebRequest -Uri "http://localhost:3000/transactions/export?format=csv" -OutFile "transactions.csv" -UseBasicParsing
 ```
 
-### Option C — Demo scripts
+### Option C - Demo scripts
 
 ```bash
 # macOS / Linux
@@ -129,7 +129,7 @@ demo\run.bat
 
 ## Notes
 
-- Storage is **in-memory** — all data is lost when the server restarts.
+- Storage is **in-memory** - all data is lost when the server restarts.
 - Account IDs must match the format `ACC-XXXXX` (5 alphanumeric characters, e.g. `ACC-12345`, `ACC-AB1CD`).
 - Currency codes must be valid [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) codes (e.g. `USD`, `EUR`, `GBP`).
 - The rate limiter allows **100 requests per minute per IP**; exceeding it returns `429 Too Many Requests`.
