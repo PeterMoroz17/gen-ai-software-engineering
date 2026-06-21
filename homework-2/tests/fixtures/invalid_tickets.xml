@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tickets>
+  <ticket>
+    <customer_email>not-valid-email</customer_email>
+    <customer_name>Alice</customer_name>
+    <subject>Missing customer id field</subject>
+    <description>This ticket is missing the required customer_id field and has an invalid email address too.</description>
+  </ticket>
+  <ticket>
+    <customer_id>x2</customer_id>
+    <customer_email>bob@example.com</customer_email>
+    <customer_name>Bob</customer_name>
+    <subject>Description too short</subject>
+    <description>Short</description>
+  </ticket>
+</tickets>

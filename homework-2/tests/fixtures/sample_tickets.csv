@@ -1,0 +1,6 @@
+customer_id,customer_email,customer_name,subject,description,category,priority,status
+c001,alice@example.com,Alice Smith,Cannot login to account,I have been unable to log into my account for two days and the password reset is not working.,account_access,medium,new
+c002,bob@example.com,Bob Jones,Application crashes on startup,The application crashes every single time I try to open it on my Windows 11 machine.,technical_issue,high,new
+c003,carol@example.com,Carol White,Refund request for double billing charge,I was charged twice for my monthly subscription last billing cycle and I need a full refund.,billing_question,medium,new
+c004,dave@example.com,Dave Brown,Feature request for dark mode option,It would be really nice to have a dark mode theme available in the application settings panel.,feature_request,low,new
+c005,eve@example.com,Eve Davis,Bug with incorrect invoice totals,The invoice total does not match the sum of the line items. Steps to reproduce are attached.,bug_report,medium,new
