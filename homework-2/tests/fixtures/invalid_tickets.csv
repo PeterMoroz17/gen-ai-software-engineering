@@ -1,5 +1,0 @@
-customer_id,customer_email,customer_name,subject,description,category
-c001,not-an-email,Alice,Cannot login,I cannot login to my account and this is a long enough description.,account_access
-c002,bob@example.com,,App crash,The application crashes whenever I try to save any file on the system.,technical_issue
-c003,carol@example.com,Carol,Help,Short
-c004,dave@example.com,Dave,Valid subject here,This description is long enough to be valid but category is wrong.,invalid_category_value
