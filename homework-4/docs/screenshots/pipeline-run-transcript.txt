@@ -1,0 +1,92 @@
+Pipeline started 2026-06-20T19:11:48.369Z
+
+=== STAGE: Bug Researcher (model: claude-haiku-4-5-20251001) ===
+I've completed the investigation and written the research report to `context/bugs/001/research/codebase-research.md`. 
+
+**Summary of findings:**
+
+1. **Symptom 1 (Pagination)**: Line 15 of `src/bookmarks.js` uses `slice(start, start + pageSize - 1)` instead of `slice(start, start + pageSize)`, causing the last item of every page to be dropped.
+
+2. **Symptom 2 (Remove fails)**: Line 42 of `src/index.js` passes a string ID from command-line args to `removeBookmark()`, which at line 19 of `src/bookmarks.js` compares it against numeric IDs stored in bookmarks. The strict inequality `5 !== "5"` always evaluates to true, so no bookmark is ever removed.
+
+3. **Symptom 3 (Command injection)**: Line 28 of `src/bookmarks.js` interpolates the extracted host directly into an `exec()` shell command with no escaping. A malicious URL like `https://example.com; rm -rf /` would execute arbitrary shell commands.
+
+Each root cause is documented with exact file:line references and quoted source code snippets in the research report.
+=== STAGE COMPLETE: Bug Researcher ===
+
+=== STAGE: Research Verifier (model: claude-opus-4-8) ===
+Verification complete. Wrote `context/bugs/001/research/verified-research.md`.
+
+**Result: PASS — Research Quality: Excellent (9/9 references verified, 100%)**
+
+I opened both source files and confirmed every `file:line` reference and quoted snippet:
+- **Symptom 1** — `bookmarks.js:15` slice off-by-one (`start + pageSize - 1`) confirmed.
+- **Symptom 2** — string CLI id (`index.js:42`) vs. numeric `bookmark.id` in `!==` filter (`bookmarks.js:19`) confirmed.
+- **Symptom 3** — unescaped `host` interpolated into `exec()` (`bookmarks.js:28`), `extractHost` does no sanitization (`bookmarks.js:22-24`); command injection confirmed.
+
+Only one minor, non-blocking discrepancy: the `remove` case is cited as `index.js:41-46` but its closing brace is on line 47 — the snippet still clearly refers to the same block, so it counts as verified. The Bug Planner is cleared to proceed.
+=== STAGE COMPLETE: Research Verifier ===
+
+=== STAGE: Bug Planner (model: claude-haiku-4-5-20251001) ===
+Done. I've written `context/bugs/001/implementation-plan.md` with a precise, mechanically-executable plan for all three confirmed issues:
+
+1. **Pagination off-by-one** (`src/bookmarks.js:15`): Remove the `-1` from the slice range—one-character fix.
+
+2. **Remove-by-id type mismatch** (`src/index.js:42`): Convert the CLI argument from string to number with `Number(args[0])`, matching the stored numeric ID type.
+
+3. **Command injection in checkUrlReachable** (`src/bookmarks.js`):
+   - Update the import to use `execFile` instead of `exec`
+   - Add host validation with a regex that whitelists only alphanumerics, dots, hyphens, and optional port numbers (blocks all shell metacharacters)
+   - Use `execFile("ping", ["-n", "1", host], ...)` with an argument array instead of shell string interpolation
+
+Each fix includes exact before/after code snippets, rationale, and `npm test` as the verification command. The plan is ready for execution.
+=== STAGE COMPLETE: Bug Planner ===
+
+=== STAGE: Bug Fixer (model: claude-haiku-4-5-20251001) ===
+All bugs fixed successfully! I've applied all three fixes from the implementation plan:
+
+1. **Fix 1 (Pagination)**: Removed `-1` from `listBookmarks` slice to return the correct number of items per page
+2. **Fix 2 (Type Mismatch)**: Added `Number()` conversion when removing bookmarks by ID
+3. **Fix 3a & 3b (Command Injection)**: Updated import to `execFile`, added host validation with regex, and replaced shell-based `exec()` with safe `execFile()` argument array
+
+All tests pass after each change, and I've documented the fixes in `context/bugs/001/fix-summary.md` with before/after code, rationale, and manual verification steps.
+=== STAGE COMPLETE: Bug Fixer ===
+
+=== STAGE: Security Verifier (model: claude-opus-4-8) ===
+Report written to `context/bugs/001/security-report.md`.
+
+**Verdict: Clear to ship.**
+
+- **CRITICAL (resolved):** The original `exec()` command injection in `checkUrlReachable` is properly fixed — `execFile` bypasses the shell, plus a whitelist regex adds defense-in-depth.
+- **LOW (`src/bookmarks.js:29,34`):** The host regex still allows a leading `-`, so a host like `-t` would be passed to `ping` as a flag (local DoS / hang on Windows). Fix: reject hosts starting with `-` or anchor the first char to alphanumeric.
+- **INFO (`src/index.js:14`):** Uncaught `JSON.parse` on a corrupt local data file — robustness, not a security boundary.
+
+No hardcoded secrets, no unsafe comparisons (the `Number()` coercion fix is correct), no new dependencies, and XSS/SQLi/CSRF are not applicable to this CLI.
+=== STAGE COMPLETE: Security Verifier ===
+
+=== STAGE: Unit Test Generator (model: claude-haiku-4-5-20251001) ===
+Perfect! I've successfully completed the unit testing for the bug fixes:
+
+## Summary
+
+**Added 5 new FIRST-compliant tests** covering the three bug fixes:
+
+1. **Pagination fix** — Two tests verifying:
+   - Full pages return exactly `pageSize` items (not `pageSize - 1`)
+   - Partial last pages return remaining items correctly
+
+2. **Remove by ID type mismatch** — One test verifying:
+   - `removeBookmark` correctly filters by numeric ID
+
+3. **Command injection prevention** — Two tests verifying:
+   - Invalid hosts with shell metacharacters (`;`, `|`, `&`, `` ` ``, `$()`, `>`, `<`) are rejected
+   - Valid hostnames (including subdomains and ports) are accepted
+
+**Test results**: All 8 tests pass (3 existing + 5 new) in 124ms.
+
+**FIRST compliance**: All tests are Fast (<2ms except network-dependent test at ~59ms), Independent (fresh data per test), Repeatable (deterministic), Self-validating (assertions), and Timely (written for the specific bug fixes).
+
+The test report has been written to `context/bugs/001/test-report.md` with full FIRST compliance documentation and test run results.
+=== STAGE COMPLETE: Unit Test Generator ===
+
+Pipeline finished 2026-06-20T19:17:13.115Z

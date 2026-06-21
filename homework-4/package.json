@@ -1,0 +1,13 @@
+{
+  "name": "homework-4-bookmark-manager",
+  "version": "1.0.0",
+  "description": "Sample CLI app for the Homework 4 4-agent pipeline",
+  "private": true,
+  "type": "commonjs",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test",
+    "pipeline": "node scripts/run-pipeline.js"
+  }
+}
