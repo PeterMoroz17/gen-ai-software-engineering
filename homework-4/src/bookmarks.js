@@ -16,7 +16,7 @@ function listBookmarks(list, page = 1, pageSize = 10) {
 }
 
 function removeBookmark(list, id) {
-  return list.filter((bookmark) => bookmark.id !== id);
+  return list.filter((bookmark) => bookmark.id !== Number(id));
 }
 
 function extractHost(url) {
@@ -25,9 +25,8 @@ function extractHost(url) {
 
 function checkUrlReachable(url, callback) {
   const host = extractHost(url);
-  // Validate host to prevent command injection
-  const hostPattern = /^[a-zA-Z0-9.-]+(?::\d+)?$/;
-  if (!hostPattern.test(host)) {
+  // Validate host to prevent command injection: allow only alphanumeric, dots, hyphens, colons
+  if (!/^[a-zA-Z0-9.\-:]+$/.test(host)) {
     callback(false);
     return;
   }

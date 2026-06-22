@@ -44,7 +44,9 @@ function log(line) {
 }
 
 function readFile(relPath) {
-  return fs.readFileSync(path.join(ROOT, relPath), "utf8");
+  // Normalize CRLF to LF so the frontmatter regexes below (which match \n)
+  // work regardless of which line endings the markdown file was saved with.
+  return fs.readFileSync(path.join(ROOT, relPath), "utf8").replace(/\r\n/g, "\n");
 }
 
 function stripFrontmatter(markdown) {

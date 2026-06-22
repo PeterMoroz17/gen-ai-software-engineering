@@ -66,14 +66,14 @@ All new tests satisfy the FIRST principles:
 > homework-4-bookmark-manager@1.0.0 test
 > node --test
 
-✔ addBookmark adds a bookmark with an incrementing id (0.4934ms)
-✔ addBookmark requires url and title (0.152ms)
-✔ listBookmarks returns bookmarks for a page within a single full page (0.1154ms)
-✔ listBookmarks returns exactly pageSize items on a full page (pagination fix) (0.1123ms)
-✔ listBookmarks returns remaining items on partial last page (pagination fix) (1.3418ms)
-✔ removeBookmark removes bookmark by numeric ID (type mismatch fix) (0.0966ms)
-✔ checkUrlReachable rejects invalid hosts with command injection characters (1.0401ms)
-✔ checkUrlReachable accepts valid hostnames (command injection fix) (59.4365ms)
+✔ addBookmark adds a bookmark with an incrementing id (0.602ms)
+✔ addBookmark requires url and title (0.2077ms)
+✔ listBookmarks returns bookmarks for a page within a single full page (0.1441ms)
+✔ listBookmarks returns exactly pageSize items on a full page (pagination fix) (0.1884ms)
+✔ listBookmarks returns remaining items on partial last page (pagination fix) (0.13ms)
+✔ removeBookmark removes bookmark by numeric ID (type mismatch fix) (0.1029ms)
+✔ checkUrlReachable rejects invalid hosts with command injection characters (1.4728ms)
+✔ checkUrlReachable accepts valid hostnames (command injection fix) (44.5732ms)
 ℹ tests 8
 ℹ suites 0
 ℹ pass 8
@@ -81,10 +81,10 @@ All new tests satisfy the FIRST principles:
 ℹ cancelled 0
 ℹ skipped 0
 ℹ todo 0
-ℹ duration_ms 123.7431
+ℹ duration_ms 131.2444
 ```
 
-**Summary**: All 8 tests pass, including the 3 existing tests and 5 new tests covering the bug fixes.
+**Summary**: ✅ All 8 tests pass (100% success rate). Duration: 131.2ms.
 
 ---
 

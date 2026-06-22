@@ -39,7 +39,7 @@ function main() {
       break;
     }
     case "remove": {
-      const id = Number(args[0]);
+      const id = args[0];
       const updated = removeBookmark(bookmarks, id);
       saveBookmarks(updated);
       console.log(`Removed bookmark #${id} (now ${updated.length} remaining)`);

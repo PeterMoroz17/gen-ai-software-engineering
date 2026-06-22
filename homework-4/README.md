@@ -95,5 +95,21 @@ All under [`context/bugs/001/`](context/bugs/001/):
 
 ## Screenshots
 
-See [`docs/screenshots/`](docs/screenshots/) — pipeline run, code diff, security
-report, and test results (before/after).
+See [`docs/screenshots/`](docs/screenshots/):
+
+- `pipeline-run-1/2.png` — the full `npm run pipeline` run, all 6 stages
+- `app-before.png` / `app-after.png` — the seeded bugs reproducing, then fixed
+- `fixes-applied-1/2/3.png` — `fix-summary.md`'s before/after code for all 3 fixes
+- `security-scan-1/2.png` — `security-report.md`'s findings and verdict
+- `unit-tests.png` — `npm test` showing 8/8 passing
+- `ai-planning-1..4.png` — the original planning prompt, the approved plan, and the resulting todo list
+- `ai-agent-scaffold-1..4.png` — all 4 actual `*.agent.md` files
+
+One screenshot type called for by the assignment, `ai-pipeline-debug` (a live
+moment of Claude diagnosing a pipeline failure), was lost to a session
+compaction during development. The two real debugging incidents it would have
+shown are documented in text instead: the "Usage credits are required for
+long context requests" model swap (see `PLAN.md`'s "Post-plan deviation"
+section) and the Windows CRLF frontmatter-parsing bug in
+`scripts/run-pipeline.js` (the `readFile` normalizes `\r\n` to `\n` specifically
+because of this).

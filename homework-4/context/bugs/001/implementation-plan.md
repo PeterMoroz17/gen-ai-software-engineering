@@ -1,31 +1,31 @@
 # Implementation Plan — Bookmark Manager CLI (Bug 001)
 
-**Author**: Bug Planner  
-**Date**: 2026-06-20  
-**Status**: Ready to execute  
-**Test command**: `npm test`
+**Planner**: Bug Planner  
+**Date**: 2026-06-22  
+**Verified Research**: `context/bugs/001/research/verified-research.md` (Excellent quality)  
+**Test Command**: `npm test`
 
 ---
 
 ## Overview
 
-Three confirmed bugs will be fixed across two files. All fixes are low-risk, localized changes that do not affect the API surface or data structures.
+Three confirmed bugs will be fixed across two source files. All fixes are low-risk, localized changes with no API surface or data structure changes.
 
-| Bug | Severity | File | Root Cause | Fix Strategy |
-|-----|----------|------|-----------|--------------|
-| Pagination off-by-one | Medium | `src/bookmarks.js` | `slice()` end index is one short | Remove `-1` from slice range |
-| Remove by ID type mismatch | High | `src/index.js` | CLI arg is string, ID is numeric | Convert arg to number at call site |
-| Command injection in checkUrlReachable | Critical | `src/bookmarks.js` | Unescaped shell interpolation | Validate host with regex; use `execFile` with argument array |
+| Bug | Severity | Root Cause | Fix Location | Strategy |
+|-----|----------|-----------|--------------|----------|
+| Pagination off-by-one | Medium | `slice()` end index off by one | `src/bookmarks.js:15` | Remove `-1` from slice range |
+| Remove by ID type mismatch | High | String CLI arg vs numeric bookmark ID | `src/bookmarks.js:19` | Convert string ID to number before comparison |
+| Command injection in checkUrlReachable | Critical | Unescaped shell interpolation of user input | `src/bookmarks.js` (lines 1, 26–31) | Validate host with regex; switch from `exec` to `execFile` with array arguments |
 
 ---
 
-## Fix 1: Pagination Off-by-One (`src/bookmarks.js:15`)
+## Fix 1: Pagination Off-by-One
 
-**Problem**: `listBookmarks` returns one fewer item per page than requested because `slice()` receives an exclusive end index that is one position too early.
+**File**: `src/bookmarks.js`  
+**Location**: Line 15  
+**Symptom**: Returning `pageSize - 1` items per page instead of `pageSize` (last item dropped each page)
 
-**File**: `src/bookmarks.js`
-
-**Before** (line 15):
+### Before
 ```javascript
 function listBookmarks(list, page = 1, pageSize = 10) {
   const start = (page - 1) * pageSize;
@@ -33,7 +33,7 @@ function listBookmarks(list, page = 1, pageSize = 10) {
 }
 ```
 
-**After** (line 15):
+### After
 ```javascript
 function listBookmarks(list, page = 1, pageSize = 10) {
   const start = (page - 1) * pageSize;
@@ -41,53 +41,45 @@ function listBookmarks(list, page = 1, pageSize = 10) {
 }
 ```
 
-**Rationale**: The `slice(start, end)` method returns elements from index `start` up to (but not including) index `end`. For a page of size 10 starting at index 0, the range should be `slice(0, 10)` to include indices 0–9. The `-1` made the range `slice(0, 9)`, excluding index 9 and returning only 9 items.
+**Rationale**: The `slice(start, end)` method returns elements from index `start` up to (but not including) index `end`. The `- 1` makes the end index exclusive by one too many positions. For page 1 with size 10, `slice(0, 10)` includes indices 0–9 (10 items); the original `slice(0, 9)` includes only 0–8 (9 items). Removing the `- 1` restores the correct range.
 
-**Test command after change**: `npm test`
-
----
-
-## Fix 2: Remove by ID Type Mismatch (`src/index.js:42`)
-
-**Problem**: The CLI argument is a string, but bookmarks store numeric IDs. The strict inequality `!==` comparison always fails, so no bookmark is ever removed.
-
-**File**: `src/index.js`
-
-**Before** (lines 41–46):
-```javascript
-case "remove": {
-  const id = args[0];
-  const updated = removeBookmark(bookmarks, id);
-  saveBookmarks(updated);
-  console.log(`Removed bookmark #${id} (now ${updated.length} remaining)`);
-  break;
-}
-```
-
-**After** (lines 41–46):
-```javascript
-case "remove": {
-  const id = Number(args[0]);
-  const updated = removeBookmark(bookmarks, id);
-  saveBookmarks(updated);
-  console.log(`Removed bookmark #${id} (now ${updated.length} remaining)`);
-  break;
-}
-```
-
-**Rationale**: Convert the string argument to a number before passing to `removeBookmark`, matching the type of the stored numeric ID. This follows the same pattern already used in the `list` case (`const page = Number(args[0]) || 1`).
-
-**Test command after change**: `npm test`
+**Test after**: `npm test` — verify pagination tests return exactly `pageSize` items per page.
 
 ---
 
-## Fix 3: Command Injection in `checkUrlReachable` (`src/bookmarks.js`)
+## Fix 2: Remove by ID Type Mismatch
 
-**Problem**: The host is interpolated directly into a shell command without validation, allowing command injection via shell metacharacters.
+**File**: `src/bookmarks.js`  
+**Location**: Line 19  
+**Symptom**: Removing a bookmark by ID never works; the filter always returns the unchanged list
 
-**Files**: `src/bookmarks.js` (lines 1 and 26–31)
+### Before
+```javascript
+function removeBookmark(list, id) {
+  return list.filter((bookmark) => bookmark.id !== id);
+}
+```
 
-### Step 3a: Update the import statement
+### After
+```javascript
+function removeBookmark(list, id) {
+  return list.filter((bookmark) => bookmark.id !== Number(id));
+}
+```
+
+**Rationale**: The `id` parameter is a string (passed from `process.argv.slice(2)` in `src/index.js:23`). The `bookmark.id` is numeric (set as a number in `addBookmark()` and preserved from JSON). The strict inequality `!==` comparison always evaluates to `true` when comparing a number to a string (e.g., `5 !== "5"` is `true`). Converting `id` to a number with `Number(id)` makes the types match, so the comparison works correctly: `5 !== 5` is `false` (the bookmark is filtered out).
+
+**Test after**: `npm test` — verify that removing a bookmark by ID actually removes it and decrements the list length.
+
+---
+
+## Fix 3: Command Injection in checkUrlReachable
+
+**File**: `src/bookmarks.js`  
+**Locations**: Line 1 (import) and lines 26–31 (function)  
+**Symptom**: Host from user input (URL) is interpolated directly into shell command; shell metacharacters (`; $ | & > <` backticks, etc.) are interpreted as commands
+
+### Step 3a: Update Import Statement
 
 **Before** (line 1):
 ```javascript
@@ -99,9 +91,9 @@ const { exec } = require("child_process");
 const { execFile } = require("child_process");
 ```
 
-**Rationale**: Use `execFile` instead of `exec` to avoid spawning a shell. `execFile` executes a program directly with arguments as an array, preventing shell interpretation of metacharacters.
+**Rationale**: `execFile` executes a program directly without spawning a shell, so it treats all arguments as literal strings. This prevents shell interpretation of metacharacters.
 
-### Step 3b: Update the `checkUrlReachable` function
+### Step 3b: Update checkUrlReachable Function
 
 **Before** (lines 26–31):
 ```javascript
@@ -113,13 +105,12 @@ function checkUrlReachable(url, callback) {
 }
 ```
 
-**After** (lines 26–35):
+**After** (lines 26–34):
 ```javascript
 function checkUrlReachable(url, callback) {
   const host = extractHost(url);
-  // Validate host to prevent command injection
-  const hostPattern = /^[a-zA-Z0-9.-]+(?::\d+)?$/;
-  if (!hostPattern.test(host)) {
+  // Validate host to prevent command injection: allow only alphanumeric, dots, hyphens, colons
+  if (!/^[a-zA-Z0-9.\-:]+$/.test(host)) {
     callback(false);
     return;
   }
@@ -129,31 +120,37 @@ function checkUrlReachable(url, callback) {
 }
 ```
 
-**Rationale**: 
-1. Add host validation with a strict regex that allows only alphanumeric characters, dots, hyphens, and optional port numbers. This whitelist blocks all shell metacharacters (`;`, `|`, `$`, backticks, `&`, `>`, `<`, etc.).
-2. Return early with `callback(false)` if the host fails validation.
-3. Use `execFile("ping", ["-n", "1", host], ...)` instead of `exec()` to pass arguments as an array, preventing shell interpretation even if the regex validation is bypassed.
+**Rationale**:
+1. **Host validation regex** `/^[a-zA-Z0-9.\-:]+$/` restricts the host to safe characters: alphanumerics, dots (domain names), hyphens (subdomains), colons (IPv6 ports). This whitelist blocks all shell metacharacters and command-injection attempts like `example.com; rm -rf /` or `example.com$(cat /etc/passwd)`.
+2. **Early return on invalid host**: If validation fails, return immediately with `callback(false)` to avoid executing ping with malicious input.
+3. **execFile with array arguments**: Replace `exec()` with `execFile("ping", ["-n", "1", host], ...)`. The arguments are passed as an array, not interpolated into a shell string, so even if regex validation is somehow bypassed, shell interpretation cannot occur.
 
-**Test command after change**: `npm test`
+**Test after**: `npm test` — verify that valid hosts pass the check and malicious hosts (e.g., `example.com; whoami`) are rejected.
 
 ---
 
-## Execution Checklist
+## Execution Steps
 
-- [ ] Apply Fix 1: Remove `-1` from `listBookmarks` slice (src/bookmarks.js:15)
-- [ ] Apply Fix 2: Add `Number()` conversion to remove command (src/index.js:42)
-- [ ] Apply Fix 3a: Update `child_process` import to use `execFile` (src/bookmarks.js:1)
-- [ ] Apply Fix 3b: Add host validation and use `execFile` in `checkUrlReachable` (src/bookmarks.js:26–35)
-- [ ] Run `npm test` to verify all fixes
-- [ ] Verify no test regressions
+1. **Apply Fix 1**: In `src/bookmarks.js` line 15, change `start + pageSize - 1` to `start + pageSize`.
+2. **Apply Fix 2**: In `src/bookmarks.js` line 19, change `bookmark.id !== id` to `bookmark.id !== Number(id)`.
+3. **Apply Fix 3a**: In `src/bookmarks.js` line 1, change `const { exec }` to `const { execFile }`.
+4. **Apply Fix 3b**: In `src/bookmarks.js` lines 26–31, replace the entire `checkUrlReachable` function with the validated version using `execFile`.
+5. **Run tests**: Execute `npm test` to verify all fixes.
 
 ---
 
 ## Expected Test Results
 
-After all fixes are applied, the test suite should:
-- ✓ Pass pagination tests (all items on a page are returned)
-- ✓ Pass removal tests (bookmarks are successfully removed by ID)
-- ✓ Pass security tests (command injection attempts are blocked; valid hosts are reachable)
-- ✓ No breaking changes to existing functionality
+After all fixes are applied:
+- ✓ **Pagination tests pass**: `listBookmarks()` returns exactly `pageSize` items per page, including the last item.
+- ✓ **Removal tests pass**: `removeBookmark()` successfully removes bookmarks by numeric ID when passed a string ID.
+- ✓ **Security tests pass**: `checkUrlReachable()` accepts valid hostnames/IPs but rejects malicious input containing shell metacharacters.
+- ✓ **No regressions**: Existing functionality remains unchanged.
 
+---
+
+## Code Changes Summary
+
+**File**: `src/bookmarks.js`  
+**Lines changed**: 1, 15, 19, 26–34 (8 lines total, including new validation lines in function)  
+**Risk level**: Low (all changes are localized, no API changes, no data structure changes)
