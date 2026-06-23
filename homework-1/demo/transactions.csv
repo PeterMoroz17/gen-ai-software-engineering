@@ -1,0 +1,12 @@
+id,fromAccount,toAccount,amount,currency,type,timestamp,status
+"d9b1991c-c8a0-4dbb-96d6-4b0716281b91","","ACC-12345","1000","USD","deposit","2026-05-14T14:37:53.367Z","completed"
+"330bad2d-4487-49d7-9522-e12a42b39c12","","ACC-12345","500","EUR","deposit","2026-05-14T14:37:53.439Z","completed"
+"1a4aa81c-a875-452b-ac5b-650f2f4c74f1","ACC-12345","ACC-12346","50","UAH","transfer","2026-05-14T14:39:56.300Z","completed"
+"652f03e0-b831-41b7-b664-0fde2f8093e3","ACC-12345","ACC-12346","50","UAH","transfer","2026-05-14T14:40:11.721Z","completed"
+"22b3f83c-d11c-4035-8d7f-3f1506332393","ACC-12345","ACC-12346","50","GBP","transfer","2026-05-14T14:41:12.303Z","completed"
+"76b1737f-4f66-4a0e-be9a-77752da2dc28","ACC-12345","ACC-12346","50","GBP","transfer","2026-05-14T20:37:57.108Z","completed"
+"182673dc-6760-46ca-a15a-93f270b4ecf8","","ACC-12345","1100","UAH","deposit","2026-05-14T20:40:00.262Z","completed"
+"4c10aaf5-2293-453d-8809-881493ccc089","","ACC-12345","400","GBP","deposit","2026-05-14T20:40:22.563Z","completed"
+"b7ba0804-125f-499a-9c4d-38bd49b38b0d","","ACC-12345","200","GBP","deposit","2026-05-14T20:40:34.057Z","completed"
+"e6cb8146-ad20-49f8-88c8-4b0e259230f1","","ACC-12345","1000","UAH","deposit","2026-05-14T20:41:00.911Z","completed"
+"7c24f85d-49e5-445f-ab72-32c54b2b4627","ACC-12345","ACC-12346","500","UAH","transfer","2026-05-14T20:41:18.629Z","completed"
