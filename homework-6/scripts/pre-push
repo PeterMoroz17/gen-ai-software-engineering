@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Tracked template for the real git pre-push hook. .git/hooks/ is not versioned,
+# so this file must be installed manually (see HOWTORUN.md):
+#   cp homework-6/scripts/pre-push .git/hooks/pre-push && chmod +x .git/hooks/pre-push
+set -euo pipefail
+
+REPO_ROOT="$(git rev-parse --show-toplevel)"
+bash "$REPO_ROOT/homework-6/scripts/check_coverage.sh"
