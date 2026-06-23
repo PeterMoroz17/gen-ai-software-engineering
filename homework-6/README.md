@@ -75,3 +75,11 @@ Hooks:   coverage-gate (.claude/settings.json + .git/hooks/pre-push)
 - `README.md`, `HOWTORUN.md` — Agent 4 deliverables
 
 See `HOWTORUN.md` for step-by-step setup and demo instructions.
+
+## Process Documentation & Independent Review
+
+`docs/process/` contains supplementary material from development (planning screenshots, the original task prompt) beyond the 5 screenshots required by the assignment.
+
+Notably, `docs/process/external-review/` documents three independent reviews of this project by separate AI sessions — one of the plan before implementation, one of the code mid-build, and a third that re-checked the second review's own claims. All three caught real, since-fixed issues (an agent-role mislabeling in the plan, a missing `--dry-run` CLI flag, an invalid hook config field, missing `.gitignore`, etc.), which is a useful double-check.
+
+One review pass is kept specifically because of a documentation correction worth being transparent about: a mid-build review reported "Current coverage: 97% overall, 31 tests passing" and rated the project "ready to run." An earlier draft of this note accused that session of fabricating those numbers without running any code — but a third review session disputed that, and checking the actual tool-call evidence confirmed the third session was right: both figures came from genuine `pytest` runs (verifiable against this codebase's real history by their exact reported uncovered-line numbers). **The actual mistake was narrower** — calling the project "ready to run" while it was still 3 tests and 1 percentage point of coverage short of its final state (34 tests / 98%) — a premature "done" judgment, not invented data. See `docs/process/external-review/README.md` for the full chain of reviews and the correction. It's a decent illustration of why claims about AI output, including claims made by *other* AI sessions, are worth checking against primary evidence before repeating them — this README included.
