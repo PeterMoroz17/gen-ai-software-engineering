@@ -1,0 +1,52 @@
+[
+  {
+    "customer_id": "j001",
+    "customer_email": "frank@example.com",
+    "customer_name": "Frank Miller",
+    "subject": "Password reset email not arriving",
+    "description": "I requested a password reset over an hour ago but the email has not arrived in my inbox at all.",
+    "category": "account_access",
+    "priority": "medium",
+    "status": "new"
+  },
+  {
+    "customer_id": "j002",
+    "customer_email": "grace@example.com",
+    "customer_name": "Grace Lee",
+    "subject": "Server error on checkout",
+    "description": "I get a 500 internal server error every time I try to complete a purchase on the checkout page.",
+    "category": "technical_issue",
+    "priority": "high",
+    "status": "new"
+  },
+  {
+    "customer_id": "j003",
+    "customer_email": "henry@example.com",
+    "customer_name": "Henry Clark",
+    "subject": "Question about subscription pricing",
+    "description": "I would like to understand the difference between the monthly and annual subscription billing plans.",
+    "category": "billing_question",
+    "priority": "low",
+    "status": "new"
+  },
+  {
+    "customer_id": "j004",
+    "customer_email": "iris@example.com",
+    "customer_name": "Iris Wang",
+    "subject": "Suggestion: export tickets to CSV",
+    "description": "It would be a great enhancement if users could export their support ticket history to a CSV file.",
+    "category": "feature_request",
+    "priority": "low",
+    "status": "new"
+  },
+  {
+    "customer_id": "j005",
+    "customer_email": "jack@example.com",
+    "customer_name": "Jack Turner",
+    "subject": "Bug: search results show deleted items",
+    "description": "Steps to reproduce: delete an item, then search for it. The deleted item still appears in results.",
+    "category": "bug_report",
+    "priority": "medium",
+    "status": "new"
+  }
+]

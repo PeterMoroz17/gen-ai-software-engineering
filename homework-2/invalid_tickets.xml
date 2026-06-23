@@ -1,0 +1,76 @@
+<?xml version="1.0" ?>
+<tickets>
+  <!-- 5 valid tickets -->
+  <ticket>
+    <customer_id>CUST-V1</customer_id>
+    <customer_email>valid1@example.com</customer_email>
+    <customer_name>Valid User</customer_name>
+    <subject>Valid subject one</subject>
+    <description>This description is definitely long enough to pass the minimum validation requirement.</description>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-V2</customer_id>
+    <customer_email>valid2@example.com</customer_email>
+    <customer_name>Valid User</customer_name>
+    <subject>Valid subject two</subject>
+    <description>This description is definitely long enough to pass the minimum validation requirement.</description>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-V3</customer_id>
+    <customer_email>valid3@example.com</customer_email>
+    <customer_name>Valid User</customer_name>
+    <subject>Valid subject three</subject>
+    <description>This description is definitely long enough to pass the minimum validation requirement.</description>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-V4</customer_id>
+    <customer_email>valid4@example.com</customer_email>
+    <customer_name>Valid User</customer_name>
+    <subject>Valid subject four</subject>
+    <description>This description is definitely long enough to pass the minimum validation requirement.</description>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-V5</customer_id>
+    <customer_email>valid5@example.com</customer_email>
+    <customer_name>Valid User</customer_name>
+    <subject>Valid subject five</subject>
+    <description>This description is definitely long enough to pass the minimum validation requirement.</description>
+  </ticket>
+  <!-- 5 invalid tickets -->
+  <ticket>
+    <customer_id>CUST-I1</customer_id>
+    <customer_email>not-an-email</customer_email>
+    <customer_name>Bad Email</customer_name>
+    <subject>Invalid email address</subject>
+    <description>This description is long enough but the email address above is clearly not valid.</description>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-I2</customer_id>
+    <customer_email>blank@example.com</customer_email>
+    <customer_name></customer_name>
+    <subject>Blank customer name</subject>
+    <description>This description is long enough but the customer_name element above is blank.</description>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-I3</customer_id>
+    <customer_email>short@example.com</customer_email>
+    <customer_name>Short Desc</customer_name>
+    <subject>Too short description</subject>
+    <description>Short.</description>
+  </ticket>
+  <ticket>
+    <customer_id>CUST-I4</customer_id>
+    <customer_email>invalid4@example.com</customer_email>
+    <customer_name>Bad Category</customer_name>
+    <subject>Invalid category field</subject>
+    <description>This description is long enough but the category value below is not a valid enum.</description>
+    <category>not_a_valid_category</category>
+  </ticket>
+  <ticket>
+    <customer_id></customer_id>
+    <customer_email>invalid5@example.com</customer_email>
+    <customer_name>Blank ID</customer_name>
+    <subject>Blank customer id</subject>
+    <description>This description is long enough but the customer_id element above is blank.</description>
+  </ticket>
+</tickets>

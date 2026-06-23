@@ -1,0 +1,342 @@
+[
+  {
+    "customer_id": "CUST-0001",
+    "customer_email": "alice.smith1@example.com",
+    "customer_name": "Alice Smith",
+    "subject": "Cannot login to account",
+    "description": "I have been unable to log into my account for the past two days and need urgent help resetting it.",
+    "category": "account_access",
+    "priority": "high",
+    "status": "new",
+    "tags": [
+      "auth",
+      "login"
+    ],
+    "metadata": {
+      "source": "web_form"
+    }
+  },
+  {
+    "customer_id": "CUST-0002",
+    "customer_email": "bob.jones2@example.com",
+    "customer_name": "Bob Jones",
+    "subject": "Password reset email not arriving",
+    "description": "I requested a password reset over an hour ago but the email has not arrived in my inbox.",
+    "category": "account_access",
+    "priority": "medium",
+    "status": "new",
+    "tags": [
+      "auth",
+      "password"
+    ],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST-0003",
+    "customer_email": "carol.white3@example.com",
+    "customer_name": "Carol White",
+    "subject": "Account locked after failed attempts",
+    "description": "My account was locked after three failed login attempts and I cannot get back into it.",
+    "category": "account_access",
+    "priority": "high",
+    "status": "in_progress",
+    "tags": [
+      "auth",
+      "locked"
+    ],
+    "metadata": {
+      "source": "web_form"
+    }
+  },
+  {
+    "customer_id": "CUST-0004",
+    "customer_email": "dave.brown4@example.com",
+    "customer_name": "Dave Brown",
+    "subject": "Two-factor authentication code rejected",
+    "description": "My 2FA code is being rejected even though I am using the correct authenticator app.",
+    "category": "account_access",
+    "priority": "urgent",
+    "status": "in_progress",
+    "tags": [
+      "auth",
+      "2fa"
+    ],
+    "metadata": {
+      "source": "chat"
+    }
+  },
+  {
+    "customer_id": "CUST-0005",
+    "customer_email": "eve.davis5@example.com",
+    "customer_name": "Eve Davis",
+    "subject": "Application crashes on startup",
+    "description": "The application crashes every single time I try to open it on my Windows 11 machine.",
+    "category": "technical_issue",
+    "priority": "high",
+    "status": "in_progress",
+    "tags": [
+      "crash",
+      "desktop"
+    ],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST-0006",
+    "customer_email": "frank.miller6@example.com",
+    "customer_name": "Frank Miller",
+    "subject": "500 internal server error on checkout",
+    "description": "I get a 500 internal server error every time I try to complete a purchase on the platform.",
+    "category": "technical_issue",
+    "priority": "urgent",
+    "status": "in_progress",
+    "tags": [
+      "error",
+      "api"
+    ],
+    "metadata": {
+      "source": "api"
+    }
+  },
+  {
+    "customer_id": "CUST-0007",
+    "customer_email": "grace.lee7@example.com",
+    "customer_name": "Grace Lee",
+    "subject": "API timeout on bulk requests",
+    "description": "Our integration keeps getting timeout errors when sending more than ten API requests per second.",
+    "category": "technical_issue",
+    "priority": "high",
+    "status": "new",
+    "tags": [
+      "api",
+      "timeout"
+    ],
+    "metadata": {
+      "source": "api"
+    }
+  },
+  {
+    "customer_id": "CUST-0008",
+    "customer_email": "henry.clark8@example.com",
+    "customer_name": "Henry Clark",
+    "subject": "Search results not loading at all",
+    "description": "The search page spins indefinitely and never returns results for any query I enter in the box.",
+    "category": "technical_issue",
+    "priority": "medium",
+    "status": "new",
+    "tags": [
+      "search",
+      "performance"
+    ],
+    "metadata": {
+      "source": "web_form"
+    }
+  },
+  {
+    "customer_id": "CUST-0009",
+    "customer_email": "iris.wang9@example.com",
+    "customer_name": "Iris Wang",
+    "subject": "Double charge on monthly subscription",
+    "description": "I was charged twice for my monthly subscription this billing cycle and need a full refund immediately.",
+    "category": "billing_question",
+    "priority": "high",
+    "status": "in_progress",
+    "tags": [
+      "billing",
+      "refund"
+    ],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST-0010",
+    "customer_email": "jack.turner10@example.com",
+    "customer_name": "Jack Turner",
+    "subject": "Invoice total does not match items",
+    "description": "The invoice total does not match the line items listed and I need a corrected invoice for accounting.",
+    "category": "billing_question",
+    "priority": "medium",
+    "status": "new",
+    "tags": [
+      "billing",
+      "invoice"
+    ],
+    "metadata": {
+      "source": "web_form"
+    }
+  },
+  {
+    "customer_id": "CUST-0011",
+    "customer_email": "alice.smith11@example.com",
+    "customer_name": "Alice Smith",
+    "subject": "No refund received after cancellation",
+    "description": "I cancelled my subscription two weeks ago but have still not received my refund yet.",
+    "category": "billing_question",
+    "priority": "high",
+    "status": "resolved",
+    "tags": [
+      "billing",
+      "refund"
+    ],
+    "metadata": {
+      "source": "phone"
+    }
+  },
+  {
+    "customer_id": "CUST-0012",
+    "customer_email": "bob.jones12@example.com",
+    "customer_name": "Bob Jones",
+    "subject": "Unauthorized charge on credit card",
+    "description": "There is an unexpected charge from your service on my credit card that I did not authorize.",
+    "category": "billing_question",
+    "priority": "urgent",
+    "status": "in_progress",
+    "tags": [
+      "billing",
+      "payment"
+    ],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST-0013",
+    "customer_email": "carol.white13@example.com",
+    "customer_name": "Carol White",
+    "subject": "Please add a dark mode theme",
+    "description": "It would be great to have a dark mode theme option available in the application user settings.",
+    "category": "feature_request",
+    "priority": "low",
+    "status": "new",
+    "tags": [
+      "feature",
+      "ux"
+    ],
+    "metadata": {
+      "source": "web_form"
+    }
+  },
+  {
+    "customer_id": "CUST-0014",
+    "customer_email": "dave.brown14@example.com",
+    "customer_name": "Dave Brown",
+    "subject": "Export reports to PDF format",
+    "description": "Please add the ability to export reports and tickets to PDF format for our offline records.",
+    "category": "feature_request",
+    "priority": "low",
+    "status": "new",
+    "tags": [
+      "feature",
+      "export"
+    ],
+    "metadata": {
+      "source": "chat"
+    }
+  },
+  {
+    "customer_id": "CUST-0015",
+    "customer_email": "eve.davis15@example.com",
+    "customer_name": "Eve Davis",
+    "subject": "Allow bulk ticket assignment",
+    "description": "It would improve workflow significantly to allow assigning multiple tickets to agents at once.",
+    "category": "feature_request",
+    "priority": "medium",
+    "status": "in_progress",
+    "tags": [
+      "feature",
+      "workflow"
+    ],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST-0016",
+    "customer_email": "frank.miller16@example.com",
+    "customer_name": "Frank Miller",
+    "subject": "Increase API rate limits for enterprise",
+    "description": "Our integration would benefit greatly from higher API rate limits available on the enterprise plan.",
+    "category": "feature_request",
+    "priority": "medium",
+    "status": "new",
+    "tags": [
+      "feature",
+      "api"
+    ],
+    "metadata": {
+      "source": "api"
+    }
+  },
+  {
+    "customer_id": "CUST-0017",
+    "customer_email": "grace.lee17@example.com",
+    "customer_name": "Grace Lee",
+    "subject": "Dashboard ticket count is wrong",
+    "description": "The ticket count shown on the dashboard is incorrect. Steps to reproduce: open dashboard and compare the count to the list.",
+    "category": "bug_report",
+    "priority": "medium",
+    "status": "new",
+    "tags": [
+      "bug",
+      "dashboard"
+    ],
+    "metadata": {
+      "source": "web_form"
+    }
+  },
+  {
+    "customer_id": "CUST-0018",
+    "customer_email": "henry.clark18@example.com",
+    "customer_name": "Henry Clark",
+    "subject": "Sorting by date shows random order",
+    "description": "Sorting tickets by date shows results in a completely random order. Steps to reproduce: click the date column header.",
+    "category": "bug_report",
+    "priority": "medium",
+    "status": "in_progress",
+    "tags": [
+      "bug",
+      "ui"
+    ],
+    "metadata": {
+      "source": "email"
+    }
+  },
+  {
+    "customer_id": "CUST-0019",
+    "customer_email": "iris.wang19@example.com",
+    "customer_name": "Iris Wang",
+    "subject": "Applied filters reset on page refresh",
+    "description": "Applied filters are lost when the page is refreshed. Steps to reproduce: set a filter then refresh the page.",
+    "category": "bug_report",
+    "priority": "medium",
+    "status": "new",
+    "tags": [
+      "bug",
+      "ui"
+    ],
+    "metadata": {
+      "source": "chat"
+    }
+  },
+  {
+    "customer_id": "CUST-0020",
+    "customer_email": "jack.turner20@example.com",
+    "customer_name": "Jack Turner",
+    "subject": "Duplicate email notifications sent",
+    "description": "Users receive duplicate email notifications for the same event. Steps to reproduce: update a ticket status and check inbox.",
+    "category": "bug_report",
+    "priority": "high",
+    "status": "in_progress",
+    "tags": [
+      "bug",
+      "notifications"
+    ],
+    "metadata": {
+      "source": "api"
+    }
+  }
+]

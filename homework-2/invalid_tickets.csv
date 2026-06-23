@@ -1,0 +1,11 @@
+customer_id,customer_email,customer_name,subject,description
+CUST-V1,valid1@example.com,Valid User,Valid subject one,This description is definitely long enough to pass the minimum requirement.
+CUST-V2,valid2@example.com,Valid User,Valid subject two,This description is definitely long enough to pass the minimum requirement.
+CUST-V3,valid3@example.com,Valid User,Valid subject three,This description is definitely long enough to pass the minimum requirement.
+CUST-V4,valid4@example.com,Valid User,Valid subject four,This description is definitely long enough to pass the minimum requirement.
+CUST-V5,valid5@example.com,Valid User,Valid subject five,This description is definitely long enough to pass the minimum requirement.
+CUST-I1,not-an-email,Invalid User,Bad email row,This description is long enough but the email address above is clearly invalid.
+CUST-I2,,Missing Email User,No email here,This row has an empty email field which must fail the required email validation.
+CUST-I3,invalid3@example.com, ,Blank name row,This row has a whitespace-only name which the not-blank validator must reject.
+CUST-I4,invalid4@example.com,Short Desc User,Short description,Short.
+CUST-I5, ,Blank ID User,Blank customer id,This row has a whitespace-only customer_id which the not-blank validator rejects.
